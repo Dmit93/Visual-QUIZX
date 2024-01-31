@@ -254,35 +254,37 @@ const SelectTemplateView = ({setSelectTemplateFirst}) => {
   )
 }
 
-const Container1 = () => {
-  const [leftBlockWidth, setLeftBlockWidth] = useState(50);
-  const [rightBlockWidth, setRightBlockWidth] = useState(50);
 
-  const handleMouseMove = (event) => {
-    const containerWidth = 100; // Ширина контейнера, можно задать любое значение
-    const mouseX = event.clientX;
-    
-    // Вычисляем новую ширину левого блока
-    const newLeftBlockWidth = (mouseX / containerWidth) * 100;
-    setLeftBlockWidth(newLeftBlockWidth);
+const SaveDocument = () => {
 
-    // Вычисляем новую ширину правого блока
-    const newRightBlockWidth = 100 - newLeftBlockWidth;
-    setRightBlockWidth(newRightBlockWidth);
-  };
+  const saveUrl = (action = "test123") => {
+    //const obj = getFieldsInObject();
 
-  return (
-    <div className="container" onMouseMove={handleMouseMove}>
-      <div className="left-block" style={{ width: `${leftBlockWidth}%` }}>
-        {/* Содержимое левого блока */}
-      </div>
-      <div className="right-block" style={{ width: `${rightBlockWidth}%` }}>
-        {/* Содержимое правого блока */}
-      </div>
-      <div className="line"></div>
-    </div>
-  );
-};
+    let formData = new FormData();
+    formData.append('action', action);
+    fetch('https://quizx.ru/test.php', {
+        method: "POST",
+        body: formData,
+    })
+        .then(function (response) {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error("User creation failed.");
+            }
+        })
+        .then(function (data) {
+            console.log(data);
+            d
+        })
+        .catch(function (error) {
+            console.log(error.message);
+        });
+}
+
+
+  return (<button onClick={saveUrl}>Сохранить</button>)
+}
 
 
 function App() {
@@ -291,11 +293,11 @@ function App() {
   const [activeElement, setActiveElement] = useState(true); // Активация дополнительных элементов по типу настройки
   const [changeLine, setChangeLine] = useState(false); // Активация линий у блоков
 
-console.log(selectComponent)
+// console.log(selectComponent)
 // console.log(selectTemplateFirst)
   return (
     <>
-     {/* <BlockDivider /> */}
+     <SaveDocument />
      {!selectTemplateFirst && (
         <SelectTemplateView setSelectTemplateFirst={setSelectTemplateFirst}/>
     )}

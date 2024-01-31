@@ -3,7 +3,7 @@ import {ButtonSettings} from '../templates/ButtonSettings.jsx'
 
 
 
-export const TextStyler = ({placeholder}) => {
+export const TextStyler = ({placeholder, id, selectComponent, seSelectComponent}) => {
   const [text, setText] = useState('');
   const [fontSize, setFontSize] = useState(16);
   const [borderRadius, setborderRadius] = useState(0);
@@ -12,31 +12,63 @@ export const TextStyler = ({placeholder}) => {
   const [background, setBackground] = useState('transparent');
   const [active, setActive] = useState(false); // Активация блока  стилей для редактирования
 
+  const addPropertyById = (id, newProperty) => {
+    seSelectComponent(prevArray => {
+      return prevArray.map(subArray => {
+      
+          if (subArray.id === id) {
+            return { ...subArray, ...newProperty };
+          }
+          return subArray;
+      
+      });
+    });
+  };
+  
+  console.log(selectComponent)
   const handleTextChange = (event) => {
     setText(event.target.value);
+    addPropertyById(id,  { text: event.target.value })
+    // seSelectComponent(prev => {
+    //   prev.filter( elem => {
+    //     if (elem.id === id){
+    //       console.log(elem)
+    //     }
+    //   })
+    //   // const newState = { ...prev };
+    //   // delete newState[el];
+    //   // return newState;
+    // })
   };
 
   const handleFontSizeChange = (event) => {
     setFontSize(event.target.value);
+    addPropertyById(id,  { fontSize: event.target.value })
   };
 
   const handleRadiusChange = (event) => {
     setborderRadius(event.target.value);
+    addPropertyById(id,  { borderRadius: event.target.value })
   };
 
   const handleFontWeightChange = (event) => {
     setFontWeight(event.target.value);
+    addPropertyById(id,  { fontWeight: event.target.value })
   };
 
   const colorEdit = (event) => {
     setColor(event.target.value);
+    addPropertyById(id,  { color: event.target.value })
   };
   const backgroundEdit = (event) => {
     setBackground(event.target.value);
+    addPropertyById(id,  { background: event.target.value })
   };
   const activeSettings = (event) => {
     setActive(!active);
   };
+
+
 
   return (
     <div>

@@ -54,6 +54,8 @@ export const Container = ({ hideSourceOnDrag, selectComponent, seSelectComponent
                         hideSourceOnDrag={hideSourceOnDrag}
                         data={selectComponent[key]}
                         activeElement={activeElement}
+                        selectComponent={selectComponent}
+                        seSelectComponent={seSelectComponent}
                     >
                         {title}
                     </Box>

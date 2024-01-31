@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const Uploader = () => {
   const [image, setImage] = useState(null);
   const [nameImage, setNameImage] = useState(null);
-console.log(image)
+
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
